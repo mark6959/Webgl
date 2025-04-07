@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGL Simple Triangle</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #333; }
+        canvas { display: block; }
+    </style>
+</head>
+<body onload="main()">
+    <!-- Canvas-elementet, hvor WebGL tegner trekanten -->
+    <canvas id="webgl-canvas" width="800" height="600">
+        Your browser does not seem to support HTML5 canvas.
+    </canvas>
+    <!-- Vertex shader: Her definerer vi, hvordan hver vertex (punkt) skal behandles -->
+    <textarea id="vertex-shader" style="display: none;">
+        precision mediump float;
+        attribute vec3 Pos; /* Positionen af vertex */
+        attribute vec3 Color; /* Farven af vertex */
+        varying vec3 vertexColor; /* Sender farven videre til fragment shader */
+        void main() {
+            vertexColor = Color;
+            gl_Position = vec4(Pos, 1.0); /* Sætter positionen i 3D-rummet */
+        }
+    </textarea>
+    <!-- Fragment shader: Her bestemmer vi farven for hver pixel -->
+    <textarea id="fragment-shader" style="display: none;">
+        precision mediump float;
+        varying vec3 vertexColor; /* Modtager farven fra vertex shader */
+        void main() {
+            gl_FragColor = vec4(vertexColor, 1.0); /* Sætter pixelens farve */
+        }
+    </textarea>
+    <!-- Inkluderer JavaScript-filen, der styrer WebGL -->
+    <script src="webgl.js"></script>
+</body>
+</html>
